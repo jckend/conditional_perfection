@@ -143,7 +143,9 @@ export async function runExperiment(updateDebugPanel: () => void): Promise<void>
   /* define trial stimuli array for timeline variables */
   const test_stimuli: Record<string>[] = [
     { stimulus: 'There are two ways to get $5 from Mr. Johnson: mowing his lawn or cleaning his gutters. However, Laura believes that mowing Mr. Johnson’s lawn is the only way to obtain $5 from him. She tells you: “If you mow Mr. Johnson’s lawn, he’ll pay you $5.”', prompt: 'Do you think Laura would accept the following statement: “If you don’t mow Mr. Johnson’s lawn, he won’t pay you $5.”'},
-    { stimulus: 'Bob has two risk factors for cardiovascular disease: he smokes and he drinks excessively. However, Bob has lied to his doctor about his drinking. Bob’s doctor tells you: “If Bob doesn’t quit smoking, he’ll get cardiovascular disease.”',  prompt: 'Do you think Bob’s doctor would accept the following statement: “If Bob quits smoking, he won’t get cardiovascular disease.”'},
+    { stimulus: 'There are two ways to get $5 from Mr. Johnson: mowing his lawn or cleaning his gutters. However, Laura knows that she can obtain $5 by either mowing Mr. Johnson’s lawn or cleaning his gutters. She tells you: “If you mow Mr. Johnson’s lawn, he’ll pay you $5.”', prompt: 'Do you think Laura would accept the following statement: “If you don’t mow Mr. Johnson’s lawn, he won’t pay you $5.”'},
+    { stimulus: 'Bob has two risk factors for cardiovascular disease: he smokes and he drinks excessively. However, Bob’s doctor only knows about Bob’s drinking. He tells you: “If Bob doesn’t quit smoking, he’ll get cardiovascular disease.”',  prompt: 'Do you think Bob’s doctor would accept the following statement: “If Bob quits smoking, he won’t get cardiovascular disease.”'},
+    { stimulus: 'Bob has two risk factors for cardiovascular disease: he smokes and he drinks excessively. Bob’s doctor knows about both risk factors. He tells you: “If Bob doesn’t quit smoking, he’ll get cardiovascular disease.”',  prompt: 'Do you think Bob’s doctor would accept the following statement: “If Bob quits smoking, he won’t get cardiovascular disease.”'},
   ]
 
   /* define test trials */
@@ -152,7 +154,7 @@ export async function runExperiment(updateDebugPanel: () => void): Promise<void>
     stimulus: () => {
     return jsPsych.evaluateTimelineVariable('stimulus') +  " " + jsPsych.evaluateTimelineVariable('prompt') ;
     },          
-    labels: ["false", "unsure", "true"],
+    labels: ["no", "unsure", "yes"],
     slider_width: 500,
     require_movement: true, 
     on_finish: function (data: TrialData) {
