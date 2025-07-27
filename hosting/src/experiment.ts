@@ -189,6 +189,18 @@ export async function runExperiment(updateDebugPanel: () => void): Promise<void>
     },
   }
 
+    /* define instructions trial */
+  const instructions2 = {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: `
+<p>In this experiment, you will be presented with an image and asked to evaluate the truth of a sentence based on the scene.</p>
+<p>Press any key to begin.</p>
+    `,
+    post_trial_gap: 2000,
+  }
+  timeline.push(instructions2)
+
+
     const test2 = {
     type: jsPsychHtmlSliderResponse,
     stimulus: () => {
