@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex nofollow" />
+    <title>%VITE_APP_TITLE%</title>
+  </head>
+  <body>
+    <div id="preload-splash" class="fixed top-0 right-0 bottom-0 left-0 z-999 bg-white">
+      <div class="text-center">
+        <p class="mb-8">
+          <span class="text-2xl">Loading, please wait.</span>
+        </p>
+      </div>
+    </div>
+    <div id="welcome-splash" class="z-998 hidden h-screen items-center justify-center" hidden>
+      <div class="text-center">
+        <p class="mb-8">
+          <span class="text-2xl">Ready?</span>
+        </p>
+        <button id="startButton" class="mx-auto" disabled>Please Wait...</button>
+      </div>
+    </div>
+    <div id="loading-splash" class="fixed top-0 right-0 bottom-0 left-0 z-999 bg-gray-400" hidden>
+      <div class="flex h-screen items-center justify-center text-center">
+        <p class="mb-8">
+          <span class="text-2xl">Loading...</span>
+        </p>
+      </div>
+    </div>
+    <!-- DEBUG-PANEL -->
+    <button class="debug-toggle hidden" id="debug-panel-button" hidden>Debug Panel</button>
+    <div class="debug-panel hidden" id="debug-panel-display" hidden>
+      <h3>Mock Database State:</h3>
+      <pre id="debug-panel-code"></pre>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

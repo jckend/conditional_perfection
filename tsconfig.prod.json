@@ -1,0 +1,19 @@
+{
+  "extends": "./tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    /**
+       To have warnings/errors at the correct position, enable source maps.
+      */
+    "sourceMap": false,
+    "removeComments": true,
+    ////
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitAny": true,
+    ////
+    "alwaysStrict": true,
+    "strictNullChecks": true,
+    "exactOptionalPropertyTypes": true
+  }
+}

@@ -1,0 +1,18 @@
+#########
+### auth files ###
+#########
+src/creds.ts
+
+#########
+### generated directories ###
+#########
+node_modules/
+dist/
+
+#########
+### generated files ###
+#########
+
+#########
+### project specific patterns ###
+#########
