@@ -122,6 +122,28 @@ export async function runExperiment(updateDebugPanel: () => void): Promise<void>
   }
   timeline.push(preload)
 
+  var throw_man1 = {
+    type: jsPsychImageKeyboardResponse,
+    stimulus: imgStim1,
+    stimulus_width: 700,
+    choices: ['ArrowLeft', 'ArrowRight'],
+    prompt: '<p><b>If Bobby doesnt throw his rock, the vase will not shatter</b>.</p>',
+    trial_duration: 4000,
+    response_ends_trial: true,
+  }
+
+  var throw_man2 = {
+    type: jsPsychImageKeyboardResponse,
+    stimulus: imgStim2,
+    stimulus_width: 700,
+    choices: ['ArrowLeft', 'ArrowRight'],
+    prompt: '<p><b>If Bobby doesnt throw his rock, the vase will not shatter</b>.</p>',
+    trial_duration: 4000,
+    response_ends_trial: true,
+  }
+
+
+  
   /* define welcome message trial */
   const welcome = {
     type: jsPsychHtmlKeyboardResponse,
@@ -148,8 +170,26 @@ export async function runExperiment(updateDebugPanel: () => void): Promise<void>
     { stimulus: 'Bob has two risk factors for cardiovascular disease: he smokes and he drinks excessively. Bob’s doctor knows about both risk factors. He tells you: “If Bob doesn’t quit smoking, he’ll get cardiovascular disease.”',  prompt: 'Do you think Bob’s doctor would accept the following statement: “If Bob quits smoking, he won’t get cardiovascular disease.”'},
   ]
 
+  const image_trials = [throw_man1, throw_man2] 
+
   /* define test trials */
     const test1 = {
+    type: jsPsychImageKeyboardResponse,
+    prompt: jsPsych.timelineVariable('prompt') as unknown as string,
+    stimulus: jsPsych.timelineVariable('stimulus') as unknown as string,
+    choices: ['ArrowLeft', 'ArrowRight'] satisfies KeyboardResponse[],
+    trial_duration: 4000,
+    data: {
+      task: 'response' satisfies Task,
+      // correct_response: jsPsych.timelineVariable('correct_response') as unknown as string,
+    },
+    on_finish: function (data: TrialData) {
+      // data.correct = jsPsych.pluginAPI.compareKeys(data.response || null, data.correct_response || null)
+      data.saveIncrementally = true
+    },
+  }
+
+    const test2 = {
     type: jsPsychHtmlSliderResponse,
     stimulus: () => {
     return jsPsych.evaluateTimelineVariable('stimulus') +  " " + jsPsych.evaluateTimelineVariable('prompt') ;
@@ -165,13 +205,21 @@ export async function runExperiment(updateDebugPanel: () => void): Promise<void>
 
 
   /* define test procedure */
-  const test_procedure = {
+  const test_procedure1 = {
     timeline: [test1],
+    timeline_variables: image_trials,
+    repetitions: 1,
+    randomize_order: true,
+  }
+  timeline.push(test_procedure1)
+
+  const test_procedure2 = {
+    timeline: [test2],
     timeline_variables: test_stimuli,
     repetitions: 1,
     randomize_order: true,
   }
-  timeline.push(test_procedure)
+  timeline.push(test_procedure2)
 
    /* define debrief */
   const debrief_block = {
