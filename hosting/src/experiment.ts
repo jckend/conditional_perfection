@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
+import externalHtml from '@jspsych/plugin-external-html'
+import jsPsychHtmlButtonResponse from '@jspsych/plugin-html-button-response'
 import jsPsychHtmlKeyboardResponse from '@jspsych/plugin-html-keyboard-response'
+import jsPsychHtmlSliderResponse from '@jspsych/plugin-html-slider-response'
 import jsPsychImageKeyboardResponse from '@jspsych/plugin-image-keyboard-response'
 import jsPsychPreload from '@jspsych/plugin-preload'
 import { initJsPsych } from 'jspsych'
@@ -138,59 +141,41 @@ export async function runExperiment(updateDebugPanel: () => void): Promise<void>
   timeline.push(instructions)
 
   /* define trial stimuli array for timeline variables */
-  const test_stimuli: Record<string, string>[] = [
-    { stimulus: imgStim1, correct_response: 'f' as KeyboardResponse },
-    { stimulus: imgStim2, correct_response: 'j' as KeyboardResponse },
+  const test_stimuli: Record<string>[] = [
+    { stimulus: imgStim1},
+    { stimulus: imgStim2},
   ]
 
-  /* define fixation and test trials */
-  const fixation = {
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus: '<div style="font-size:60px;">+</div>',
-    choices: 'NO_KEYS',
-    trial_duration: function () {
-      return jsPsych.randomization.sampleWithoutReplacement([250, 500, 750, 1000, 1250, 1500, 1750, 2000], 1)[0]
-    },
-    data: {
-      task: 'fixation' satisfies Task,
-    },
-  }
-
-  const test = {
-    type: jsPsychImageKeyboardResponse,
-    stimulus: jsPsych.timelineVariable('stimulus') as unknown as string,
-    choices: ['f', 'j'] satisfies KeyboardResponse[],
-    data: {
-      task: 'response' satisfies Task,
-      correct_response: jsPsych.timelineVariable('correct_response') as unknown as string,
-    },
+  /* define test trials */
+    const test1 = {
+    type: jsPsychHtmlSliderResponse,
+    stimulus: () => {
+    return jsPsych.evaluateTimelineVariable('stimulus') +  "<p>How odd do you find the friend's statement?</p>";
+    },          
+    labels: ["false", "unsure", "true"],
+    slider_width: 500,
+    require_movement: true, 
     on_finish: function (data: TrialData) {
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition, unicorn/no-null
-      data.correct = jsPsych.pluginAPI.compareKeys(data.response || null, data.correct_response || null)
       data.saveIncrementally = true
     },
   }
 
+
   /* define test procedure */
   const test_procedure = {
-    timeline: [fixation, test],
+    timeline: [test1],
     timeline_variables: test_stimuli,
-    repetitions: 3,
+    repetitions: 1,
     randomize_order: true,
   }
   timeline.push(test_procedure)
 
-  /* define debrief */
+   /* define debrief */
   const debrief_block = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: function () {
-      const trials = jsPsych.data.get().filter({ task: 'response' })
-      const correct_trials = trials.filter({ correct: true })
-      const accuracy = Math.round((correct_trials.count() / trials.count()) * 100)
-      const rt = Math.round(correct_trials.select('rt').mean())
-
-      return `<p>You responded correctly on ${accuracy.toString()}% of the trials.</p>
-          <p>Your average response time was ${rt.toString()}ms.</p>
+      return `
           <p>Press any key to complete the experiment. Thank you!</p>`
     },
   }
