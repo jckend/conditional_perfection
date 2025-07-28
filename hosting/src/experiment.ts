@@ -168,9 +168,8 @@ export async function runExperiment(updateDebugPanel: () => void): Promise<void>
   /* define test trials */
     const test1 = {
     type: jsPyschImageSliderResponse,
-    stimulus: () => {
-    return jsPsych.evaluateTimelineVariable('stimulus') +  " " + jsPsych.evaluateTimelineVariable('prompt') ;
-    },          
+    stimulus: jsPsych.evaluateTimelineVariable('stimulus'),
+    prompt: jsPsych.evaluateTimelineVariable('prompt'),          
     labels: ["no", "unsure", "yes"],
     slider_width: 500,
     require_movement: true, 
