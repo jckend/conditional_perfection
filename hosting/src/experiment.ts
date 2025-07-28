@@ -2,8 +2,6 @@
 
 import externalHtml from '@jspsych/plugin-external-html'
 import jsPsychHtmlButtonResponse from '@jspsych/plugin-html-button-response'
-import jsPsychImageButtonResponse from '@jspsych/plugin-image-button-response'
-import jsPyschImageSliderResponse from '@jspsych/plugin-image-slider-response'
 import jsPsychHtmlKeyboardResponse from '@jspsych/plugin-html-keyboard-response'
 import jsPsychHtmlSliderResponse from '@jspsych/plugin-html-slider-response'
 import jsPsychImageKeyboardResponse from '@jspsych/plugin-image-keyboard-response'
@@ -15,9 +13,6 @@ import { saveTrialDataComplete, saveTrialDataPartial } from './lib/databaseUtils
 
 import type { SaveableDataRecord } from '../types/project'
 import type { DataCollection } from 'jspsych'
-
-import imgStim1 from './images/blue.png'
-import imgStim2 from './images/orange.png'
 
 /* Alternatively
  * type JsPsychInstance = ReturnType<typeof initJsPsych>
@@ -114,28 +109,6 @@ export async function runExperiment(updateDebugPanel: () => void): Promise<void>
 
   /* create timeline */
   const timeline: Record<string, unknown>[] = []
-
-  /* preload images */
-  const preload = {
-    type: jsPsychPreload,
-    images: [imgStim1, imgStim2],
-  }
-  timeline.push(preload)
-
-  var throw_man1 = {
-    type: jsPyschImageSliderResponse,
-    labels: imgStim1,
-    choices: ["no", "unsure", "yes"],
-    prompt: '<p>Based on the scene depicted, do you find the following sentence acceptable: “If Bobby doesn’t throw his rock, the vase will not shatter.”</p>',
-  }
-
-  var throw_man2 = {
-    type: jsPyschImageSliderResponse,
-    stimulus: imgStim2,
-    labels: ["no", "unsure", "yes"],
-    prompt: '<p>Based on the scene depicted, do you find the following sentence acceptable: “If Bobby doesn’t throw his rock, the vase will not shatter.”</p>',
-  }
-
   
   /* define welcome message trial */
   const welcome = {
@@ -163,32 +136,8 @@ export async function runExperiment(updateDebugPanel: () => void): Promise<void>
     { stimulus: 'Bob has two risk factors for cardiovascular disease: he smokes and he drinks excessively. Bob’s doctor knows about both risk factors. He tells you: “If Bob doesn’t quit smoking, he’ll get cardiovascular disease.”',  prompt: 'Do you think Bob’s doctor would accept the following statement: “If Bob quits smoking, he won’t get cardiovascular disease.”'},
   ]
 
-  const image_trials = [throw_man1, throw_man2] 
-
   /* define test trials */
-    const test1 = {
-    type: jsPyschImageSliderResponse,
-    stimulus: jsPsych.evaluateTimelineVariable('stimulus'),
-    prompt: jsPsych.evaluateTimelineVariable('prompt'),          
-    labels: ["no", "unsure", "yes"],
-    slider_width: 500,
-    require_movement: true, 
-    on_finish: function (data: TrialData) {
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition, unicorn/no-null
-      data.saveIncrementally = true
-    },
-  }
-
-    const instructions2 = {
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus: `
-      <p>In this experiment, you will be presented with an image and asked to evaluate the truth of a sentence based on the scene.</p>
-      <p>Press any key to begin.</p>
-    `,
-    post_trial_gap: 2000,
-  }
-
-    const test2 = {
+  const test = {
     type: jsPsychHtmlSliderResponse,
     stimulus: () => {
     return jsPsych.evaluateTimelineVariable('stimulus') +  " " + jsPsych.evaluateTimelineVariable('prompt') ;
@@ -205,20 +154,12 @@ export async function runExperiment(updateDebugPanel: () => void): Promise<void>
 
   /* define test procedure */
   const test_procedure = {
-    timeline: [test1],
-    timeline_variables: image_trials,
-    repetitions: 1,
-    randomize_order: true,
-  }
-  timeline.push(test_procedure)
-
-  const test_procedure2 = {
-    timeline: [instructions2,test2],
+    timeline: [test],
     timeline_variables: test_stimuli,
     repetitions: 1,
     randomize_order: true,
   }
-  timeline.push(test_procedure2)
+  timeline.push(test_procedure)
 
 
    /* define debrief */
