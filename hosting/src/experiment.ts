@@ -125,20 +125,18 @@ export async function runExperiment(updateDebugPanel: () => void): Promise<void>
   var throw_man1 = {
     type: jsPsychImageKeyboardResponse,
     stimulus: imgStim1,
-    stimulus_width: 700,
+    stimulus_width: 400,
     choices: ['ArrowLeft', 'ArrowRight'],
-    prompt: '<p><b>If Bobby doesnt throw his rock, the vase will not shatter</b>.</p>',
-    trial_duration: 4000,
+    prompt: '<p>Based on the scene depicted, do you find the following sentence acceptable: “If Bobby doesn’t throw his rock, the vase will not shatter.”</p>',
     response_ends_trial: true,
   }
 
   var throw_man2 = {
     type: jsPsychImageKeyboardResponse,
     stimulus: imgStim2,
-    stimulus_width: 700,
+    stimulus_width: 400,
     choices: ['ArrowLeft', 'ArrowRight'],
-    prompt: '<p><b>If Bobby doesnt throw his rock, the vase will not shatter</b>.</p>',
-    trial_duration: 4000,
+    prompt: '<p>Based on the scene depicted, do you find the following sentence acceptable: “If Bobby doesn’t throw his rock, the vase will not shatter.”</p>',
     response_ends_trial: true,
   }
 
