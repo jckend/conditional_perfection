@@ -27,8 +27,6 @@ const debug = debugging()
 const mock = mockStore()
 
 type Task = 'response' | 'fixation'
-type Response = 'left' | 'right'
-type KeyboardResponse = 'f' | 'j'
 
 interface TrialData {
   task: Task
