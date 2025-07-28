@@ -127,7 +127,7 @@ export async function runExperiment(updateDebugPanel: () => void): Promise<void>
     stimulus: imgStim1,
     stimulus_width: 400,
     choices: ['Yes', 'No'],
-    prompt: '<p>Based on the scene depicted, do you find the following sentence acceptable: “If Bobby doesn’t throw his rock, the vase will not shatter.”</p>',
+    prompt: '<p>Based on the scene depicted, do you find the following sentence acceptable: “If Bobby doesn’t throw his rock, the vase will not shatter.”</p>'
   }
 
 
@@ -136,9 +136,8 @@ export async function runExperiment(updateDebugPanel: () => void): Promise<void>
     stimulus: imgStim2,
     stimulus_width: 400,
     choices: ['Yes', 'No'],
-    prompt: '<p>Based on the scene depicted, do you find the following sentence acceptable: “If Bobby doesn’t throw his rock, the vase will not shatter.”</p>',
+    prompt: '<p>Based on the scene depicted, do you find the following sentence acceptable: “If Bobby doesn’t throw his rock, the vase will not shatter.”</p>'
   }
-
 
   
   /* define welcome message trial */
