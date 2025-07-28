@@ -167,7 +167,7 @@ export async function runExperiment(updateDebugPanel: () => void): Promise<void>
 
   /* define test trials */
     const test1 = {
-    type: jsPsychHtmlSliderResponse,
+    type: jsPyschImageSliderResponse,
     stimulus: () => {
     return jsPsych.evaluateTimelineVariable('stimulus') +  " " + jsPsych.evaluateTimelineVariable('prompt') ;
     },          
