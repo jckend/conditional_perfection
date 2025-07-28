@@ -206,12 +206,21 @@ export async function runExperiment(updateDebugPanel: () => void): Promise<void>
 
   /* define test procedure */
   const test_procedure = {
-    timeline: [test1,instructions2,test2],
+    timeline: [test1],
     timeline_variables: image_trials,
     repetitions: 1,
     randomize_order: true,
   }
   timeline.push(test_procedure)
+
+  const test_procedure2 = {
+    timeline: [instructions2,test2],
+    timeline_variables: test_stimuli,
+    repetitions: 1,
+    randomize_order: true,
+  }
+  timeline.push(test_procedure2)
+
 
    /* define debrief */
   const debrief_block = {
