@@ -3,6 +3,7 @@
 import externalHtml from '@jspsych/plugin-external-html'
 import jsPsychHtmlButtonResponse from '@jspsych/plugin-html-button-response'
 import jsPsychImageButtonResponse from '@jspsych/plugin-image-button-response'
+import jsPyschImageSliderResponse from '@jspsych/plugin-image-slider-response'
 import jsPsychHtmlKeyboardResponse from '@jspsych/plugin-html-keyboard-response'
 import jsPsychHtmlSliderResponse from '@jspsych/plugin-html-slider-response'
 import jsPsychImageKeyboardResponse from '@jspsych/plugin-image-keyboard-response'
@@ -122,17 +123,17 @@ export async function runExperiment(updateDebugPanel: () => void): Promise<void>
   timeline.push(preload)
 
   var throw_man1 = {
-    type: jsPsychImageButtonResponse,
-    stimulus: imgStim1,
+    type: jsPyschImageSliderResponse,
+    labels: imgStim1,
     choices: ['yes', 'no'],
-    prompt: '<p>Based on the scene depicted, do you find the following sentence acceptable: “If Bobby doesn’t throw his rock, the vase will not shatter.”</p>'
+    prompt: '<p>Based on the scene depicted, do you find the following sentence acceptable: “If Bobby doesn’t throw his rock, the vase will not shatter.”</p>',
   }
 
   var throw_man2 = {
-    type: jsPsychImageButtonResponse,
+    type: jsPyschImageSliderResponse,
     stimulus: imgStim2,
-    choices: ['yes', 'no'],
-    prompt: '<p>Based on the scene depicted, do you find the following sentence acceptable: “If Bobby doesn’t throw his rock, the vase will not shatter.”</p>'
+    labels: ['yes', 'no'],
+    prompt: '<p>Based on the scene depicted, do you find the following sentence acceptable: “If Bobby doesn’t throw his rock, the vase will not shatter.”</p>',
   }
 
   
@@ -147,8 +148,8 @@ export async function runExperiment(updateDebugPanel: () => void): Promise<void>
   const instructions = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: `
-<p>In this experiment, you will be presented with an image and asked to evaluate the truth of a sentence based on the scene.</p>
-<p>Press any key to begin.</p>
+      <p>In this experiment, you will be presented with an image and asked to evaluate the truth of a sentence based on the scene.</p>
+      <p>Press any key to begin.</p>
     `,
     post_trial_gap: 2000,
   }
