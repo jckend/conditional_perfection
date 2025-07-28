@@ -123,21 +123,20 @@ export async function runExperiment(updateDebugPanel: () => void): Promise<void>
   timeline.push(preload)
 
   var throw_man1 = {
-    type: jsPsychImageKeyboardResponse,
+    type: jsPsychHtmlButtonResponse,
     stimulus: imgStim1,
     stimulus_width: 400,
-    choices: ['ArrowLeft', 'ArrowRight'],
+    choices: ['Yes', 'No'],
     prompt: '<p>Based on the scene depicted, do you find the following sentence acceptable: “If Bobby doesn’t throw his rock, the vase will not shatter.”</p>',
-    response_ends_trial: true,
   }
 
+
   var throw_man2 = {
-    type: jsPsychImageKeyboardResponse,
+    type: jsPsychHtmlButtonResponse,
     stimulus: imgStim2,
     stimulus_width: 400,
-    choices: ['ArrowLeft', 'ArrowRight'],
+    choices: ['Yes', 'No'],
     prompt: '<p>Based on the scene depicted, do you find the following sentence acceptable: “If Bobby doesn’t throw his rock, the vase will not shatter.”</p>',
-    response_ends_trial: true,
   }
 
 
