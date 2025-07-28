@@ -2,6 +2,7 @@
 
 import externalHtml from '@jspsych/plugin-external-html'
 import jsPsychHtmlButtonResponse from '@jspsych/plugin-html-button-response'
+import jsPsychImageButtonResponse from '@jspsych/plugin-image-button-response'
 import jsPsychHtmlKeyboardResponse from '@jspsych/plugin-html-keyboard-response'
 import jsPsychHtmlSliderResponse from '@jspsych/plugin-html-slider-response'
 import jsPsychImageKeyboardResponse from '@jspsych/plugin-image-keyboard-response'
@@ -121,14 +122,14 @@ export async function runExperiment(updateDebugPanel: () => void): Promise<void>
   timeline.push(preload)
 
   var throw_man1 = {
-    type: jsPsychHtmlButtonResponse,
+    type: jsPsychImageButtonResponse,
     stimulus: imgStim1,
     choices: ['yes', 'no'],
     prompt: '<p>Based on the scene depicted, do you find the following sentence acceptable: “If Bobby doesn’t throw his rock, the vase will not shatter.”</p>'
   }
 
   var throw_man2 = {
-    type: jsPsychHtmlButtonResponse,
+    type: jsPsychImageButtonResponse,
     stimulus: imgStim2,
     choices: ['yes', 'no'],
     prompt: '<p>Based on the scene depicted, do you find the following sentence acceptable: “If Bobby doesn’t throw his rock, the vase will not shatter.”</p>'
