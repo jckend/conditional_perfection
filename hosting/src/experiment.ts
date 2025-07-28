@@ -130,7 +130,6 @@ export async function runExperiment(updateDebugPanel: () => void): Promise<void>
     prompt: '<p>Based on the scene depicted, do you find the following sentence acceptable: “If Bobby doesn’t throw his rock, the vase will not shatter.”</p>'
   }
 
-
   var throw_man2 = {
     type: jsPsychHtmlButtonResponse,
     stimulus: imgStim2,
