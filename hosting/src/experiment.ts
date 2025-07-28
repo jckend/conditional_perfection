@@ -125,14 +125,14 @@ export async function runExperiment(updateDebugPanel: () => void): Promise<void>
   var throw_man1 = {
     type: jsPyschImageSliderResponse,
     labels: imgStim1,
-    choices: ['yes', 'no'],
+    choices: ["no", "unsure", "yes"],
     prompt: '<p>Based on the scene depicted, do you find the following sentence acceptable: “If Bobby doesn’t throw his rock, the vase will not shatter.”</p>',
   }
 
   var throw_man2 = {
     type: jsPyschImageSliderResponse,
     stimulus: imgStim2,
-    labels: ['yes', 'no'],
+    labels: ["no", "unsure", "yes"]],
     prompt: '<p>Based on the scene depicted, do you find the following sentence acceptable: “If Bobby doesn’t throw his rock, the vase will not shatter.”</p>',
   }
 
@@ -167,22 +167,27 @@ export async function runExperiment(updateDebugPanel: () => void): Promise<void>
 
   /* define test trials */
     const test1 = {
-    type: jsPsychImageKeyboardResponse,
-    prompt: jsPsych.timelineVariable('prompt') as unknown as string,
-    stimulus: jsPsych.timelineVariable('stimulus') as unknown as string,
-    choices: ['ArrowLeft', 'ArrowRight'] satisfies KeyboardResponse[],
-    trial_duration: 4000,
-    data: {
-      task: 'response' satisfies Task,
-      // correct_response: jsPsych.timelineVariable('correct_response') as unknown as string,
-    },
+    type: jsPsychHtmlSliderResponse,
+    stimulus: () => {
+    return jsPsych.evaluateTimelineVariable('stimulus') +  " " + jsPsych.evaluateTimelineVariable('prompt') ;
+    },          
+    labels: ["no", "unsure", "yes"],
+    slider_width: 500,
+    require_movement: true, 
     on_finish: function (data: TrialData) {
-      // data.correct = jsPsych.pluginAPI.compareKeys(data.response || null, data.correct_response || null)
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition, unicorn/no-null
       data.saveIncrementally = true
     },
   }
 
-    /* define instructions trial */
+    const instructions2 = {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: `
+      <p>In this experiment, you will be presented with an image and asked to evaluate the truth of a sentence based on the scene.</p>
+      <p>Press any key to begin.</p>
+    `,
+    post_trial_gap: 2000,
+  }
 
     const test2 = {
     type: jsPsychHtmlSliderResponse,
@@ -200,31 +205,13 @@ export async function runExperiment(updateDebugPanel: () => void): Promise<void>
 
 
   /* define test procedure */
-  const test_procedure1 = {
-    timeline: [test1],
+  const test_procedure = {
+    timeline: [test1,instructions2,test2],
     timeline_variables: image_trials,
     repetitions: 1,
     randomize_order: true,
   }
-  timeline.push(test_procedure1)
-
-  const instructions2 = {
-    type: jsPsychHtmlKeyboardResponse,
-    stimulus: `
-      <p>In this experiment, you will be presented with an image and asked to evaluate the truth of a sentence based on the scene.</p>
-      <p>Press any key to begin.</p>
-    `,
-    post_trial_gap: 2000,
-  }
-  timeline.push(instructions2)
-  
-  const test_procedure2 = {
-    timeline: [test2],
-    timeline_variables: test_stimuli,
-    repetitions: 1,
-    randomize_order: true,
-  }
-  timeline.push(test_procedure2)
+  timeline.push(test_procedure)
 
    /* define debrief */
   const debrief_block = {
