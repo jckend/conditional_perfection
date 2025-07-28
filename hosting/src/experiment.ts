@@ -16,8 +16,8 @@ import { saveTrialDataComplete, saveTrialDataPartial } from './lib/databaseUtils
 import type { SaveableDataRecord } from '../types/project'
 import type { DataCollection } from 'jspsych'
 
-import imgStim1 from './images/rock_throw_1.png'
-import imgStim2 from './images/rock_throw_2.png'
+import imgStim1 from './images/blue.png'
+import imgStim2 from './images/orange.png'
 
 /* Alternatively
  * type JsPsychInstance = ReturnType<typeof initJsPsych>
