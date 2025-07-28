@@ -132,7 +132,7 @@ export async function runExperiment(updateDebugPanel: () => void): Promise<void>
   var throw_man2 = {
     type: jsPyschImageSliderResponse,
     stimulus: imgStim2,
-    labels: ["no", "unsure", "yes"]],
+    labels: ["no", "unsure", "yes"],
     prompt: '<p>Based on the scene depicted, do you find the following sentence acceptable: “If Bobby doesn’t throw his rock, the vase will not shatter.”</p>',
   }
 
