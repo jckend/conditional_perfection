@@ -124,7 +124,7 @@ export async function runExperiment(updateDebugPanel: () => void): Promise<void>
     type: jsPsychHtmlButtonResponse,
     stimulus: imgStim1,
     stimulus_width: 400,
-    choices: ['Yes', 'No'],
+    choices: ['yes', 'no'],
     prompt: '<p>Based on the scene depicted, do you find the following sentence acceptable: “If Bobby doesn’t throw his rock, the vase will not shatter.”</p>'
   }
 
@@ -132,7 +132,7 @@ export async function runExperiment(updateDebugPanel: () => void): Promise<void>
     type: jsPsychHtmlButtonResponse,
     stimulus: imgStim2,
     stimulus_width: 400,
-    choices: ['Yes', 'No'],
+    choices: ['yes', 'no'],
     prompt: '<p>Based on the scene depicted, do you find the following sentence acceptable: “If Bobby doesn’t throw his rock, the vase will not shatter.”</p>'
   }
 
