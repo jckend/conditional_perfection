@@ -117,6 +117,35 @@ export async function runExperiment(updateDebugPanel: () => void): Promise<void>
   }
   timeline.push(welcome)
 
+    const consent = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: `
+    <div style="margin-left: 200px; margin-right: 200px; text-align: left;">
+      <b><p style="margin-bottom: 20px;">Please consider this information carefully before deciding whether to participate in this research.</p></b>
+      
+      <p style="margin-bottom: 20px;">The purpose of this research is to examine which factors influence linguistic meaning. You will be asked to make judgements about the meaning of sentences in different scenarios. We are simply interested in your judgement. The study will take less than 1 hour to complete, and you will receive less than $20 on Prolific. Your compensation and time commitment are specified in the study description. There are no anticipated risks associated with participating in this study. The effects of participating should be comparable to those you would ordinarily experience from viewing a computer monitor and using a mouse or keyboard for a similar amount of time. At the end of the study, we will provide an explanation of the questions that motivate this line of research and will describe the potential implications.</p>
+      
+      <p style="margin-bottom: 20px;"margin-bottom: 50px;>Your participation in this study is completely voluntary and you may refuse to participate or you may choose to withdraw at any time without penalty or loss of benefits to you which are otherwise entitled. Your participation in this study will remain confidential. No personally identifiable information will be associated with your data. Also, all analyses of the data will be averaged across all the participants, so your individual responses will never be specifically analyzed.</p>
+      
+      <p style="margin-bottom: 20px;">If you have questions or concerns about your participation or payment, or want to request a summary of research findings, please contact Dr. Jonathan Phillips at <a href="mailto:Jonathan.S.Phillips@dartmouth.edu">Jonathan.S.Phillips@dartmouth.edu</a>.</p>
+      
+      <p style="margin-bottom: 20px;">Please save a copy of this form for your records.</p>
+      
+      <h3><b>Agreement:</b></h3>
+      
+      <p>The nature and purpose of this research have been sufficiently explained and I agree to participate in this study. I understand that I am free to withdraw at any time without incurring any penalty. Please consent by clicking the button below to continue. Otherwise, please exit the study at any time.</p>
+    </div>
+  `,
+    choices: ['Submit'],
+    //this specifies the way in which the data will be configured inside jspsych data variable...
+    data: {
+      internal_type: 'consent',
+      trial_name: 'consent',
+    },
+  }
+  timeline.push(consent)
+
+
   /* define instructions trial */
   const instructions = {
     type: jsPsychHtmlKeyboardResponse,
@@ -136,7 +165,8 @@ export async function runExperiment(updateDebugPanel: () => void): Promise<void>
     { stimulus: '<p>Bob has two risk factors for cardiovascular disease: he smokes and he drinks excessively. Dr. Smith knows about both risk factors.</p> <p>He tells you: “If Bob doesn’t quit smoking, he’ll get cardiovascular disease.”</p>',  prompt: 'Do you think Bob’s doctor would accept the following statement: “If Bob quits smoking, he won’t get cardiovascular disease.”'},
     { stimulus: '</p>There are two ways for Samantha to get to work: taking the train or taking an e-bike. However, Skipper believes that Samantha can only get to work by train.</p> <p>He tells you: “The train outage made Samantha late.”</p>', prompt: 'Do you think Skipper would accept the following statement: “If there hadn’t been a train outage, Samantha would have been on time.”'},
     { stimulus: '<p>There are two ways for Samantha to get to work: taking the train or taking an e-bike. Skipper knows that Samantha can get to work by either means.</p> <p>He tells you: “The train outage made Samantha late.”</p>', prompt: 'Do you think Skipper would accept the following statement: “If there hadn’t been a train outage, Samantha would have been on time.”'},
-    { stimulus: '<p>There are two ways Susie could kill her goldfish: not feeding it and not cleaning its tank. Her father knows that Susie has not cleaned the goldfish’s tank, but he doesn’t know that she stopped feeding it.</p><p>He tells you: “Susie not cleaning the tank killed the goldfish.”</p>', prompt: 'Do you think Susie’s father would accept the following statement: “If Susie had cleaned the fish tank, the goldfish wouldn’t have died.”'},
+    { stimulus: '<p>Susie has stopped feeding her goldfish and cleaning its tank. Her father only knows that Susie has stopped cleaning the goldfish’s tank.</p><p>He tells you: “Susie not cleaning the tank killed the goldfish.”</p>', prompt: 'Do you think Susie’s father would accept the following statement: “If Susie had cleaned the fish tank, the goldfish wouldn’t have died.”'},
+    { stimulus: '<p>Susie has stopped feeding her goldfish and cleaning its tank. Her father knows that Susie hasn’t been feeding her goldfish or cleaning its tank.</p> <p>He tells you: “Susie not cleaning the tank killed the goldfish.”</p>', prompt: 'Do you think Susie’s father would accept the following statement: “If Susie had cleaned the fish tank, the goldfish wouldn’t have died.”'},
   ]
 
   /* define test trials */
